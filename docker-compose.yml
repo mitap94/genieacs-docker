@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+    genie:
+        build: .
+        ports:
+            - "3000:3000"
+            - "7547:7547"
+        command: >
+            bash -c ". /root/.nvm/nvm.sh &&
+                    . /root/.nvm/bash_completion &&
+                    service mongodb start &&
+                    (genieacs-cwmp &) &&
+                    (genieacs-ui --ui-jwt-secret secret &) &&
+                    tail -F anything"
+
