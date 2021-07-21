@@ -1,13 +1,10 @@
 FROM ubuntu:20.04
-LABEL maintainter="dimitrije.petrovic@rt-rk.com"
+LABEL maintainter="petrovic.m.dimitrije@gmail.com"
 
 # Update system and install curl
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y curl
-
-# Install mongodb
-RUN apt-get install -y mongodb
 
 # Download nvm
 RUN curl -O https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh && \

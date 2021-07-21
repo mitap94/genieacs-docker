@@ -1,6 +1,14 @@
 version: '3'
 
 services:
+    db:
+        image: mongo
+        restart: always
+        ports:
+            - "27017:27017"
+        volumes:
+            - "mongo:/data/db"
+
     genie:
         build: .
         ports:
@@ -9,8 +17,13 @@ services:
         command: >
             bash -c ". /root/.nvm/nvm.sh &&
                     . /root/.nvm/bash_completion &&
-                    service mongodb start &&
                     (genieacs-cwmp &) &&
                     (genieacs-ui --ui-jwt-secret secret &) &&
                     tail -F anything"
+        environment:
+            - GENIEACS_MONGODB_CONNECTION_URL=mongodb://db:27017/genieacs
+        depends_on:
+            - db
 
+volumes:
+    mongo:
